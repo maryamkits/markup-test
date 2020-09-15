@@ -1,6 +1,6 @@
 <template>
   <div
-    class="[ absolute left-0 z-2 w-full pointer-events-none flex justify-center hidden xs:flex ] dots"
+    class="[ absolute left-0 z-2 w-full pointer-events-none justify-center hidden xs:flex ] dots"
     :class="[type === 'mainNews' ? '-bottom-8 h-5' : '-top-20 h-2-0']"
   >
     <div

@@ -20,7 +20,7 @@
         <!-- <div slot="pagination" class="swiper-pagination"></div> -->
       </swiper>
     </div>
-    <div class="[ flex justify-center mt-4-3 xs:mt-2-0 relative ]">
+    <div class="[ flex justify-center mt-4-3 mb-2-0 xs:mt-2-0 relative ]">
       <Dots :items="lastNews" />
       <RedButton title="ყველა სიახლე" class="[ text-1-3 ]" />
     </div>
