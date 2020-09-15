@@ -9,7 +9,12 @@
       />
     </div>
     <div class="[ hidden xs:block xs:h-30-0 ]">
-      <swiper ref="mySwiper" :options="swiperOptions" class="[ h-full w-full ]">
+      <swiper
+        ref="mySwiper"
+        :options="swiperOptions"
+        class="[ h-full w-full ]"
+        @slideChange="changeSwiperIndex"
+      >
         <swiper-slide
           v-for="(news, index) in lastNews"
           :key="index"
@@ -17,26 +22,34 @@
         >
           <LastNewsBox :item="news" />
         </swiper-slide>
-        <!-- <div slot="pagination" class="swiper-pagination"></div> -->
       </swiper>
     </div>
     <div class="[ flex justify-center mt-4-3 mb-2-0 xs:mt-2-0 relative ]">
-      <Dots :items="lastNews" />
+      <div
+        class="[ absolute bottom-4-0 left-0 z-2 w-full pointer-events-none justify-center hidden xs:flex ] dots"
+      >
+        <div
+          v-for="(item, index) in lastNews"
+          :key="index"
+          class="[ w-5 h-5 rounded-full bg-gray-dot mr-5 custom-pagination_icon ]"
+          :class="{ active: index === isActive }"
+        ></div>
+      </div>
       <RedButton title="ყველა სიახლე" class="[ text-1-3 ]" />
     </div>
   </div>
 </template>
 
 <script>
-import Dots from '../molecules/Dots.vue'
 import LastNewsBox from '../molecules/LastNewsBox.vue'
 import RedButton from '../atoms/RedButton'
 import Title from '../atoms/Title.vue'
 export default {
   name: 'LastNews',
-  components: { Title, RedButton, LastNewsBox, Dots },
+  components: { Title, RedButton, LastNewsBox },
   data() {
     return {
+      isActive: 0,
       swiperOptions: {
         pagination: {
           el: '.swiper-pagination',
@@ -84,12 +97,22 @@ export default {
       ],
     }
   },
+  computed: {
+    swiper() {
+      return this.$refs.mySwiper.$swiper
+    },
+  },
+  methods: {
+    changeSwiperIndex() {
+      this.isActive = this.swiper.activeIndex
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
-.dots {
-  :first-child {
+.custom-pagination_icon {
+  &.active {
     background: theme('colors.red');
   }
 }
